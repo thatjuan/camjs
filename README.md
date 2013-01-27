@@ -49,66 +49,64 @@ This set up, however, does require some sort of home web server that can run ngi
 
 Instructions on installing nginx don't belong here, but here is the server configuration I am using for the camera proxy:
 
-  server {
+		server {
 
-  	listen 443;
-		server_name cameras.example.com;
-
-
-		root /web/cameras;
+			listen 443;
+			server_name cameras.example.com;
 
 
-	 	ssl on;
-	    ssl_certificate /web/cameras/cameras.crt;
-	    ssl_certificate_key /web/cameras/cameras.key;
+			root /web/cameras;
 
 
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $remote_addr;
-		proxy_set_header Host $http_host;
+		 	ssl on;
+		    ssl_certificate /web/cameras/cameras.crt;
+		    ssl_certificate_key /web/cameras/cameras.key;
 
 
-		# local ips require no password
-		auth_basic "Private Network";
-    #pre-existing password file to grant you access too all the cameras:
-		auth_basic_user_file /web/cameras/.htpasswd; 
-    # local ips require no password, remove if you want passwords internally too.
-    satisfy any;
-		allow  192.168.0.0/16;
-    deny   all;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $remote_addr;
+			proxy_set_header Host $http_host;
 
 
-		location /cam1/ {
-			proxy_pass http://192.168.0.11/;
-			proxy_set_header Authorization "Basic ABC123=";
-		}	
+			# local ips require no password
+			auth_basic "Private Network";
+			auth_basic_user_file /web/cameras/.htpasswd;
+			satisfy any;
+			allow  192.168.0.0/16;
+			deny   all;
 
-		location /cam1/stream {
-			proxy_pass http://192.168.0.11/videostream.cgi;
-			proxy_set_header Authorization "Basic ABC123=";
-		}	
 
-		location /cam2/ {
-			proxy_pass http://192.168.0.12/;
-			proxy_set_header Authorization "Basic ABC123=";
-		}	
+			location /cam1/ {
+				proxy_pass http://192.168.0.11/;
+				proxy_set_header Authorization "Basic ABC123=";
+			}	
 
-		location /cam2/stream {
-			proxy_pass http://192.168.0.12/videostream.cgi;
-			proxy_set_header Authorization "Basic ABC123=";
-		}	
+			location /cam1/stream {
+				proxy_pass http://192.168.0.11/videostream.cgi;
+				proxy_set_header Authorization "Basic ABC123=";
+			}	
 
-		location /cam3/ {
-			proxy_pass http://192.168.0.13/;
-			proxy_set_header Authorization "Basic ABC123=";
-		}	
+			location /cam2/ {
+				proxy_pass http://192.168.0.12/;
+				proxy_set_header Authorization "Basic ABC123=";
+			}	
 
-		location /cam3/stream {
-			proxy_pass http://192.168.0.13/videostream.cgi;
-			proxy_set_header Authorization "Basic ABC123=";
+			location /cam2/stream {
+				proxy_pass http://192.168.0.12/videostream.cgi;
+				proxy_set_header Authorization "Basic ABC123=";
+			}	
+
+			location /cam3/ {
+				proxy_pass http://192.168.0.13/;
+				proxy_set_header Authorization "Basic ABC123=";
+			}	
+
+			location /cam3/stream {
+				proxy_pass http://192.168.0.13/videostream.cgi;
+				proxy_set_header Authorization "Basic ABC123=";
+			}
+
 		}
-
-	}
 
 
 Note that each camera route adds the authorization header for the specific camera, which is basically "username:password" base64-encoded.
