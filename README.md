@@ -20,12 +20,12 @@ Edit index.html to add your cameras:
   		new $.camJS($('section[name="camera_view"]'),{
 				cameras: [{
 		                'url': "http://192.168.0.10",
-		                'stream_route': "/stream",
+		                'stream_route': "/videostream.cgi;",
 		                'control_route': "/decoder_control.cgi",
 		                'name': 'Yard'
 		            },{
 		                'url': "http://192.168.0.11",
-		                'stream_route': "/stream",
+		                'stream_route': "/videostream.cgi;",
 		                'control_route': "/decoder_control.cgi",
 		                'name': 'Garage'
 		        }]
