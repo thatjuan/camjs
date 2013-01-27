@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.no-icons.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+	<script src="/js/cam.js"></script>
+	<link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<section name="camera_view">
+
+
+	</section>
+
+	<script>
+		$(function(){
+
+			new $.camJS($('section[name="camera_view"]'),{
+				cameras: [{
+		                'url': "http://192.168.0.10",
+		                'stream_route': "/stream",
+		                'control_route': "/decoder_control.cgi",
+		                'name': 'Yard'
+		            },{
+		                'url': "http://192.168.0.11",
+		                'stream_route': "/stream",
+		                'control_route': "/decoder_control.cgi",
+		                'name': 'Garage'
+		        }]
+			});
+
+		});
+	</script>
+
+</body>
+
+</html>
