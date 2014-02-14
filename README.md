@@ -39,7 +39,7 @@ Known issues
 Since you're accessing each camera directly, and they likely require authentication, your browser will start prompting for passwords.
 If you have many cameras, that will become annoying really quick, so I've found a work around:
 
-Running IP Cameras behing an nginx proxy (bonus: https)
+Running IP Cameras behind an nginx proxy (bonus: https)
 =====
 
 Foscam IP cameras (and others) generally don't support https which means accessing your camera from a public network could expose your password to third parties easily.
